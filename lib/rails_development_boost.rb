@@ -8,8 +8,8 @@ module RailsDevelopmentBoost
         if supports_reload_classes_only_on_change? # post fa1d9a
           Rails.application.config.reload_classes_only_on_change = true
           Reloader.hook_in!
-        elsif defined?(ActionDispatch::Reloader) # post 0f7c970
-          ActionDispatch::Reloader.to_prepare(:prepend => true) { ActiveSupport::Dependencies.unload_modified_files! }
+        elsif defined?(ActionSupport::Reloader) # post 0f7c970
+          ActionSupport::Reloader.to_prepare(:prepend => true) { ActiveSupport::Dependencies.unload_modified_files! }
         else
           ActionDispatch::Callbacks.before(:prepend => true)    { ActiveSupport::Dependencies.unload_modified_files! }
         end
