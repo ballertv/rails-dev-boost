@@ -34,7 +34,7 @@ module RailsDevelopmentBoost
     
     def hook_in!
       Rails.application.reloaders.unshift(self)
-      ActionSupport::Reloader.to_prepare(:prepend => true) { RailsDevelopmentBoost::Reloader.execute_if_updated }
+      ActiveSupport::Reloader.to_prepare(:prepend => true) { RailsDevelopmentBoost::Reloader.execute_if_updated }
       patch_routes_reloader! if Rails::VERSION::MAJOR >= 4
     end
     
