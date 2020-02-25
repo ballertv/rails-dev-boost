@@ -30,15 +30,21 @@ module RailsDevelopmentBoost
         remove_possible_method :remove_unloadable_constants!
         remove_possible_method :clear
         include patch
-        alias_method_chain :load_file, 'constant_tracking'
-        alias_method_chain :remove_constant, 'handling_of_connections'
+        # alias_method_chain :load_file, 'constant_tracking'
+        alias_method :load_file_without_constant_tracking, :load_file
+        alias_method :load_file, :load_file_with_constant_tracking
+        # alias_method_chain :remove_constant, 'handling_of_connections'
+        alias_method :remove_constant_without_handling_of_connections, :remove_constant
+        alias_method :remove_constant, :remove_constant_with_handling_of_connections
         extend patch
         @routes_path_loading = nil
       end
       
       ActiveSupport::Dependencies::Loadable.module_eval do
         include LoadablePatch
-        alias_method_chain :require_dependency, 'constant_tracking'
+        # alias_method_chain :require_dependency, 'constant_tracking'
+        alias_method :require_dependency_without_constant_tracking, :require_dependency
+        alias_method :require_dependency, :require_dependency_with_constant_tracking
       end
 
       InstrumentationPatch.apply! if @do_instrument

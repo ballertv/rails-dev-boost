@@ -12,7 +12,9 @@ module RailsDevelopmentBoost
         Observable
       end.class_eval do
         include patch
-        alias_method_chain :add_observer, :unloading
+        # alias_method_chain :add_observer, :unloading
+        alias_method :add_observer_without_unloading, :add_observer
+        alias_method :add_observer, :add_observer_with_unloading
       end
     end
     

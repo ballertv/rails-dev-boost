@@ -2,7 +2,9 @@ module RailsDevelopmentBoost
   module ReferenceCleanupPatch
     def self.apply!
       Module.send :include, self
-      Module.alias_method_chain :remove_const, :reference_cleanup
+      # Module.alias_method_chain :remove_const, :reference_cleanup
+      Module.alias_method :remove_const_without_reference_cleanup, :remove_const
+      Module.alias_method :remove_const, :remove_const_with_reference_cleanup
     end
     
     def remove_const_with_reference_cleanup(const_name)
