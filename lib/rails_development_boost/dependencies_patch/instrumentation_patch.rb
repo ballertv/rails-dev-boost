@@ -18,8 +18,8 @@ module RailsDevelopmentBoost
                   ''
                 end
                 # klass.alias_method_chain meth_name, extension
-                klass.alias_method "#{meth_name}_without_extension", meth_name
-                klass.alias_method meth_name, "#{meth_name}_with_extension"
+                klass.alias_method "#{meth_name}_without_#{extension}", meth_name
+                klass.alias_method meth_name, "#{meth_name}_with_#{extension}"
               end
             end
 
