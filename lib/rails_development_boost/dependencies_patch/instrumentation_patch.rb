@@ -17,7 +17,7 @@ module RailsDevelopmentBoost
                   meth_name << modifier
                   ''
                 end
-                klass.alias_method_chain meth_name, extension
+                klass.prepend meth_name, extension
               end
             end
 
