@@ -13,13 +13,16 @@ module RailsDevelopmentBoost
             (public_instance_methods(false) + private_instance_methods(false) + protected_instance_methods(false)).each do |method|
               if m = method.to_s.match(/\A(.+)_with_(.+)\Z/)
                 meth_name, extension = m[1], m[2]
+                full_modifier = ""
                 extension.sub!(/[?!=]\Z/) do |modifier|
-                  meth_name << modifier
+                  # meth_name << modifier
+                  full_modifier << modifier
                   ''
                 end
                 # klass.alias_method_chain meth_name, extension
-                klass.alias_method "#{meth_name}_without_#{extension}", meth_name
-                klass.alias_method meth_name, "#{meth_name}_with_#{extension}"
+
+                klass.alias_method "#{meth_name}_without_#{extension}#{full_modifier}", "#{meth_name}#{full_modifier}"
+                klass.alias_method "#{meth_name}#{full_modifier}", "#{meth_name}_with_#{extension}#{full_modifier}"
               end
             end
 
