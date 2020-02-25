@@ -16,8 +16,8 @@ module RailsDevelopmentBoost
 
     def self.included(base)
       # base.alias_method_chain :add_template_helper, :const_association_tracking
-      base.alias_method_chain :add_template_helper_without_const_association_tracking, :add_template_helper
-      base.alias_method_chain :add_template_helper, :add_template_helper_with_const_association_tracking
+      base.alias_method :add_template_helper_without_const_association_tracking, :add_template_helper
+      base.alias_method :add_template_helper, :add_template_helper_with_const_association_tracking
     end
   end
 end
